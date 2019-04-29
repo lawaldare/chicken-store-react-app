@@ -13,13 +13,14 @@ class Chickens extends Component {
   }
 
   render() {
+    const chickens = this.props.chickens || [];
     return (
       <div>
         <Nav />
         <LandingPage />
         <div className="container chickens_box">
           <div className="row">
-            {_.map(this.props.chickens).map(chicken => {
+            {chickens.map(chicken => {
               return (
                 <div className="col s12 m4" key={chicken.recipe_id}>
                   <div className="card">
@@ -40,7 +41,7 @@ class Chickens extends Component {
                     <div className="card-action">
                       <Link
                         class="ui orange basic button btn-text"
-                        to={`/chickens/${chicken.recipe_id}`}>
+                        to={`/chickens/${chicken.id}`}>
                         View
                       </Link>
                     </div>
@@ -56,7 +57,7 @@ class Chickens extends Component {
 }
 
 const mapStateToProps = state => {
-  return { chickens: state.chickens };
+  return { chickens: state.chickens.allChicken };
 };
 
 export default connect(

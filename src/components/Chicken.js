@@ -52,7 +52,7 @@ class Chicken extends Component {
 }
 
 const mapStateToProps = ({ chickens }, ownProps) => {
-  return { chicken: chickens[ownProps.match.params.id] };
+  return { chicken: chickens.chicken };
 };
 
 export default connect(

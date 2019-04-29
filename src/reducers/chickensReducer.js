@@ -1,16 +1,26 @@
 import _ from 'lodash';
 import { FETCH_CHICKENS, FETCH_CHICKEN } from '../actions';
+
+const initialState = {
+  chicken: {},
+  allChicken: []
+};
 export default (state = {}, action) => {
   switch (action.type) {
     case FETCH_CHICKEN:
       return {
         ...state,
-        [action.payload.data.recipe.recipe_id]: action.payload.data.recipe
+        chicken: action.payload.data
       };
 
     case FETCH_CHICKENS:
-      return _.mapKeys(action.payload.data.recipes, 'recipe_id');
+      return {
+        ...state,
+        allChicken: action.payload.data
+      };
     default:
       return state;
   }
 };
+
+// _.mapKeys(action.payload.data.recipes, 'recipe_id');
