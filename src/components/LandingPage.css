@@ -1,0 +1,27 @@
+.showcase {
+  /* background: url("../bg.jpg"); */
+  background-size: cover;
+  background-position: center;
+  min-height: 600px;
+  width: 100%;
+  color: white;
+  height: 100vh;
+  background-image: linear-gradient(to right bottom, rgba(238, 110, 114, 0.589), rgba(40, 180, 131, 0.281)),
+    url("../img/bgg.jpg");
+}
+
+h1 {
+  position: absolute;
+  top: 30%;
+  color: white;
+  font-weight: 500;
+  letter-spacing: 10px;
+}
+
+h4 {
+  position: absolute;
+  top: 37%;
+  color: white;
+  font-weight: 500;
+  letter-spacing: 10px;
+}

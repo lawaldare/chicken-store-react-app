@@ -1,0 +1,9 @@
+ul i {
+  font-size: 1.5rem !important;
+  color: white !important;
+  transition: all .3s ease-in;
+}
+
+ul i:hover {
+  transform: scale(1.5);
+}
