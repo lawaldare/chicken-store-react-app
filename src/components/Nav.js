@@ -17,9 +17,9 @@ const Nav = () => {
               </a>
             </li>
             <li className="user1">
-              <a href="badges.html">
-                <i className="user icon" />
-              </a>
+              <Link to="/chickens/add">
+                <i className="plus icon" />
+              </Link>
             </li>
           </ul>
         </div>
