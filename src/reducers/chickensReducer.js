@@ -1,5 +1,10 @@
 import _ from 'lodash';
-import { FETCH_CHICKENS, FETCH_CHICKEN, ADD_CHICKEN } from '../actions';
+import {
+  FETCH_CHICKENS,
+  FETCH_CHICKEN,
+  ADD_CHICKEN,
+  UPDATE_CHICKEN
+} from '../actions';
 
 const initialState = {
   chicken: {},
@@ -18,11 +23,19 @@ export default (state = {}, action) => {
         ...state,
         chicken: action.payload.data
       };
-
     case FETCH_CHICKENS:
       return {
         ...state,
         allChicken: action.payload.data
+      };
+    case UPDATE_CHICKEN:
+      return {
+        ...state,
+        allChicken: state.allChicken.map(chicken =>
+          chicken.id === action.payload.id
+            ? (chicken = action.payload)
+            : chicken
+        )
       };
     default:
       return state;

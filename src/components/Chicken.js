@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchChicken } from '../actions';
+import { fetchChicken, deleteChicken } from '../actions';
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
 import Nav from './Nav';
@@ -10,8 +10,18 @@ class Chicken extends Component {
     const { id } = this.props.match.params;
     this.props.fetchChicken(id);
   }
+
+  onDeleteClick = () => {
+    const { id } = this.props.match.params;
+    this.props.deleteChicken(id, () => {
+      this.props.history.push('/');
+    });
+  };
+
   render() {
     const { chicken } = this.props;
+    const { id } = this.props.match.params;
+    //const { id } = this.props.chicken;
 
     if (!chicken) {
       return <Loading />;
@@ -43,6 +53,16 @@ class Chicken extends Component {
               <Link class="ui orange basic button btn-text" to="/">
                 Go Home
               </Link>
+              <button
+                className="ui red basic button btn-text right"
+                onClick={this.onDeleteClick}>
+                Delete Chicken
+              </button>
+              <Link
+                className="ui green basic button btn-text"
+                to={`/chickens/edit/${id}`}>
+                Update Chicken
+              </Link>
             </div>
           </div>
         </div>
@@ -57,5 +77,5 @@ const mapStateToProps = ({ chickens }, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  { fetchChicken }
+  { fetchChicken, deleteChicken }
 )(Chicken);

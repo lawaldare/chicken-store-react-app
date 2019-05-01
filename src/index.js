@@ -6,7 +6,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 
 import promise from 'redux-promise';
 
-import logger from 'redux-logger';
+//import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import reducers from './reducers';
@@ -17,7 +17,7 @@ import App from './components/App';
 const store = createStore(
   reducers,
   compose(
-    applyMiddleware(promise, logger, thunk),
+    applyMiddleware(promise, thunk),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );

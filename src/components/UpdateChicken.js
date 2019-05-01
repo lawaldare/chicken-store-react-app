@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Nav from './Nav';
 import './Add.css';
 import { connect } from 'react-redux';
-import { addChicken } from '../actions';
-class AddChicken extends Component {
+import { fetchChicken, updateChicken } from '../actions';
+//import chickensReducer from '../reducers/chickensReducer';
+class UpdateChicken extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,29 +15,52 @@ class AddChicken extends Component {
     };
   }
 
-  onFormChange = e => {
+  componentWillReceiveProps(nextProps, nextState) {
+    const { image_url, title, publisher_url, publisher } = nextProps.chicken;
     this.setState({
-      [e.target.name]: e.target.value
+      image_url,
+      title,
+      publisher_url,
+      publisher
     });
-  };
+  }
+
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.props.fetchChicken(id);
+  }
 
   onFormSubmit = e => {
     e.preventDefault();
 
-    const chicken = {
-      image_url: this.state.image_url,
-      title: this.state.title,
-      publisher_url: this.state.publisher_url,
-      publisher: this.state.publisher
+    const { image_url, title, publisher_url, publisher } = this.state;
+
+    const { id } = this.props.match.params;
+
+    const updatedChicken = {
+      id,
+      image_url,
+      title,
+      publisher_url,
+      publisher
     };
 
-    this.props.addChicken(chicken);
+    this.props.updateChicken(updatedChicken);
 
     this.setState({
       image_url: '',
       title: '',
       publisher_url: '',
       publisher: ''
+    });
+
+    // alert('Chicken Updated!');
+    //this.props.history.push('/');
+  };
+
+  onFormChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
     });
   };
 
@@ -48,48 +72,48 @@ class AddChicken extends Component {
           <div className="row center add">
             <div className="col s12 m6 offset-m3">
               <div>
-                <span className="flow-text">Add Chicken</span>
+                <span className="flow-text">Update Chicken</span>
               </div>
               <div class="card-panel z-depth-5">
                 <div class="input-field">
                   <input
                     type="text"
                     name="image_url"
+                    placeholder="Image Url"
                     onChange={this.onFormChange}
                     value={this.state.image_url}
                   />
-                  <label for="image_url">Image Url</label>
                 </div>
                 <div class="input-field">
                   <input
                     type="text"
                     name="title"
+                    placeholder="Title"
                     onChange={this.onFormChange}
                     value={this.state.title}
                   />
-                  <label for="title">Title</label>
                 </div>
                 <div class="input-field">
                   <input
                     type="text"
                     name="publisher_url"
+                    placeholder="Publisher Url"
                     onChange={this.onFormChange}
                     value={this.state.publisher_url}
                   />
-                  <label for="publisher_url">Publisher_Url</label>
                 </div>
                 <div class="input-field">
                   <input
                     type="text"
                     name="publisher"
+                    placeholder="Publisher"
                     onChange={this.onFormChange}
                     value={this.state.publisher}
                   />
-                  <label for="publisher">Publisher</label>
                 </div>
                 <input
                   type="submit"
-                  value="Add Chicken"
+                  value="Update Chicken"
                   class="ui orange center basic button btn-text"
                 />
               </div>
@@ -101,7 +125,11 @@ class AddChicken extends Component {
   }
 }
 
+const mapStateToProps = ({ chickens }, ownProps) => ({
+  chicken: chickens.chicken
+});
+
 export default connect(
-  null,
-  { addChicken }
-)(AddChicken);
+  mapStateToProps,
+  { fetchChicken, updateChicken }
+)(UpdateChicken);
